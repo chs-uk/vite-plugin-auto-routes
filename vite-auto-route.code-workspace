@@ -1,0 +1,33 @@
+{
+    "folders": [{
+        "path": "."
+    }],
+    "settings": {
+        // Newlines/spaces
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true,
+        "files.trimTrailingWhitespace": true,
+
+        // Files to exclude from file explorer
+        "files.exclude": {
+            "**/node_modules/": true
+        },
+
+        // Files to exclude from git watching
+        "files.watcherExclude": {
+            "**/.git/objects/**": true,
+            "**/.git/subtree-cache/**": true,
+            "**/node_modules/*/**": true
+        },
+
+        // Editor appearance
+        "editor.rulers": [100],
+
+        // General formatting rules
+        "editor.formatOnSave": true,
+
+        // Frontend formatting
+        "vetur.format.enable": false,
+        "prettier.disableLanguages": [],
+    }
+}

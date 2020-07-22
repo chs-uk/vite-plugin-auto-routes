@@ -1,0 +1,18 @@
+{
+  "name": "vite-auto-route",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "dev2": "node dev-server.js",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "vue": "^3.0.0-rc.1",
+    "vue-router": "4.0.0-beta.3"
+  },
+  "devDependencies": {
+    "@rollup/plugin-virtual": "^2.0.3",
+    "@vue/compiler-sfc": "^3.0.0-rc.1",
+    "vite": "^1.0.0-rc.1"
+  }
+}

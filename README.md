@@ -2,6 +2,8 @@
 
 A vite plugin for automatic routing in Vue 3.
 
+**Warning:** This is not yet ready for real use - but feel free to take inspiration from it regarding auto routing and/or creating vite plugins.
+
 # Why?
 
 You want automatic routing from a directory structure, as you'd get in [Nuxt](https://nuxtjs.org/guide/routing/). Specifically, you want to turn this file tree:

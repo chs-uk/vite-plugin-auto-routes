@@ -1,26 +1,38 @@
 const fs = require('fs')
-const path = require('path')
 const virtual = require('@rollup/plugin-virtual')
 
+function parsePagesDirectory() {
+  const files = fs
+    .readdirSync('./src/pages')
+    .map((f) => ({ name: f.split('.')[0], importPath: `/src/pages/${f}` }))
+
+  const imports = files.map((f) => `import ${f.name} from '${f.importPath}'`)
+
+  const routes = files.map(
+    (f) => `{
+        name: '${f.name}',
+        path: '/${f.name}',
+        component: ${f.name},
+        ...(${f.name}.__routeOptions || {}),
+      }
+      `,
+  )
+
+  return { imports, routes }
+}
+
 module.exports = function () {
-  const files = fs.readdirSync('./src/pages')
-  const routes = files
-    .map((f) => `{ path: '/${f.split('.')[0]}', component: () => import('/src/pages/${f}') }`)
-    .join(', \n')
+  const { imports, routes } = parsePagesDirectory()
 
   const moduleContent = `
-    export const routes = [
-      ${routes}
-    ]
+    ${imports.join('\n')}
+    export const routes = [${routes.join(', \n')}]
   `
-  console.log(moduleContent)
-
-  const moduleName = 'vue-auto-routes'
 
   const configureServer = [
     async ({ app }) => {
       app.use(async (ctx, next) => {
-        if (ctx.path.endsWith('@modules/' + moduleName)) {
+        if (ctx.path.startsWith('/@modules/vue-auto-routes')) {
           ctx.type = 'js'
           ctx.body = moduleContent
         } else {
@@ -31,8 +43,18 @@ module.exports = function () {
   ]
 
   const rollupInputOptions = {
-    plugins: [virtual({ [moduleName]: moduleContent })],
+    plugins: [virtual({ 'vue-auto-routes': moduleContent })],
   }
 
-  return { configureServer, rollupInputOptions }
+  const vueCustomBlockTransforms = {
+    route: ({ code }) => {
+      return `
+        export default function (Component) {
+          Component.__routeOptions = ${code}
+        }
+      `
+    },
+  }
+
+  return { configureServer, rollupInputOptions, vueCustomBlockTransforms }
 }

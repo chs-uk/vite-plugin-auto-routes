@@ -1,14 +1,14 @@
 <template>
-  <router-view />
+  <div>
+    <router-link :to="{ name: 'about' }">About</router-link>
+    <router-link :to="{ name: 'contact' }">Contact</router-link>
+
+    <router-view />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
 }
 </script>

@@ -1,5 +1,5 @@
-const viteAutoRoute = require('./plugin.js')
+const viteAutoRoute = require('./src/plugin.js')
 
 module.exports = {
-  plugins: [viteAutoRoute()],
+  plugins: [viteAutoRoute({ pagesDir: './example/pages' })],
 }

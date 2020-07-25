@@ -1,33 +1,9 @@
-const fs = require('fs')
 const virtual = require('@rollup/plugin-virtual')
+const { parsePagesDirectory } = require('./directory-parser')
 
-function parsePagesDirectory() {
-  const files = fs
-    .readdirSync('./src/pages')
-    .map((f) => ({ name: f.split('.')[0], importPath: `/src/pages/${f}` }))
-
-  const imports = files.map((f) => `import ${f.name} from '${f.importPath}'`)
-
-  const routes = files.map(
-    (f) => `{
-        name: '${f.name}',
-        path: '/${f.name}',
-        component: ${f.name},
-        ...(${f.name}.__routeOptions || {}),
-      }
-      `,
-  )
-
-  return { imports, routes }
-}
-
-module.exports = function () {
-  const { imports, routes } = parsePagesDirectory()
-
-  const moduleContent = `
-    ${imports.join('\n')}
-    export const routes = [${routes.join(', \n')}]
-  `
+module.exports = function ({ pagesDir } = { pagesDir: 'src/pages/' }) {
+  const { routes } = parsePagesDirectory(pagesDir)
+  const moduleContent = `export const routes = [${routes.join(', \n')}]`
 
   const configureServer = [
     async ({ app }) => {
@@ -46,6 +22,7 @@ module.exports = function () {
     plugins: [virtual({ 'vue-auto-routes': moduleContent })],
   }
 
+  /* Note: these route options are not yet used anywhere */
   const vueCustomBlockTransforms = {
     route: ({ code }) => {
       return `

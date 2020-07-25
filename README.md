@@ -40,6 +40,8 @@ router: {
 }
 ```
 
+Paramaters and child components are supported in the same way as Nuxt.
+
 There already exists a Vue 2 + [vue-cli plugin](https://github.com/ktsn/vue-cli-plugin-auto-routing) for this, but not for Vue 3 + vite.
 
 # Usage
@@ -54,7 +56,7 @@ In your `vite.config.js` file add:
 const viteAutoRoute = require('./plugin.js') // or wherever you've put this plugin
 
 module.exports = {
-  plugins: [viteAutoRoute()],
+  plugins: [viteAutoRoute({ pagesDir: 'src/pages' })],
 }
 ```
 
@@ -73,22 +75,6 @@ const router = createRouter({
 createApp(App).use(router).mount('#app')
 ```
 
-# Features
-
-## Custom route blocks
-
-You can provide additional route config in a custom route block on any page, for example:
-
-```vue
-<route>
-{
-  "meta": {
-    "requiresLogin": true,
-  }
-}
-</route>
-```
-
 # Inspirations
 
 - [Nuxt routing](https://nuxtjs.org/guide/routing/)
@@ -97,9 +83,9 @@ You can provide additional route config in a custom route block on any page, for
 # To do
 
 - [x] Generate routes for a single pages folder `/src/pages` containing only `.vue` files
-- [x] Custom route block
-- [ ] Custom pages directory
-- [ ] Support child components through nested directories
-- [ ] Support route parameters
+- [x] Support child components through nested directories
+- [x] Support route parameters
+- [x] Custom pages directory
+- [ ] Custom route block
 - [ ] Publish to npm
 - [ ] Hot module reloading

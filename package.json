@@ -1,8 +1,25 @@
 {
   "name": "vite-plugin-auto-routes",
-  "version": "0.1.0",
+  "description": "Vite plugin to automatically generate routes from a file structure",
+  "version": "0.1.1",
   "license": "MIT",
   "main": "src/plugin.js",
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "Vue",
+    "Vue 3",
+    "vite",
+    "plugin",
+    "routing",
+    "auto routing"
+  ],
+  "author": "axwalker",
+  "bugs": {
+    "url": "https://github.com/ImpactBox/vite-plugin-auto-routes/issues"
+  },
+  "homepage": "https://github.com/ImpactBox/vite-plugin-auto-routes",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

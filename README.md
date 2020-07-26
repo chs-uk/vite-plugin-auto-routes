@@ -2,8 +2,6 @@
 
 A vite plugin for automatic routing in Vue 3.
 
-**Warning:** This is not yet ready for real use - but feel free to take inspiration from it regarding auto routing and/or creating vite plugins.
-
 # Why?
 
 You want automatic routing from a directory structure, as you'd get in [Nuxt](https://nuxtjs.org/guide/routing/). Specifically, you want to turn this file tree:
@@ -80,12 +78,17 @@ createApp(App).use(router).mount('#app')
 - [Nuxt routing](https://nuxtjs.org/guide/routing/)
 - [vue-cli-plugin-auto-routing](https://github.com/ktsn/vue-cli-plugin-auto-routing)
 
+# Limitations
+
+## Hot module reloading
+
+If you create new pages that will generate new routes, they currently will not be available until you refresh the page. Editing existing pages will hot reload as normal.
+
 # To do
 
-- [x] Generate routes for a single pages folder `/src/pages` containing only `.vue` files
+- [x] Support single flat directory
 - [x] Support child components through nested directories
 - [x] Support route parameters
 - [x] Custom pages directory
-- [ ] Custom route block
 - [ ] Publish to npm
-- [ ] Hot module reloading
+- [ ] Custom route block
